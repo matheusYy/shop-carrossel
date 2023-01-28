@@ -1,5 +1,18 @@
 .image-item-carrossel {
   display: flex;
+  flex-flow: column;
+}
+
+.iframe-style {
+  border-radius: 3px;
+  border: 0;
+  width: max;
+  height: 5em;
+}
+
+.content-frame {
+  width: 10%;
+  height: 50em;
 }
 
 /*# sourceMappingURL=carrossel.css.map */
