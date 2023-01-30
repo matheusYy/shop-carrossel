@@ -3,13 +3,14 @@ import "./scss/carrossel.css";
 //imagens data
 import { dataApiLocal, datavalue } from "../assets/data.img";
 //dependencias
-import React, { Children, useEffect, useState } from "react";
+import React, { Children, useEffect, useState, useRef } from "react";
 
 export const Carrossel = () => {
   const [imagemState, setStateImage] = useState(dataApiLocal);
   const [url, setUrl] = useState({ prev: 0, center: 0, next: 0 });
-  const [value, setValue] = useState({ prev: 1, center: 2, next: 3 });
+  const [value, setValue] = useState(0);
   const [vas, setVas] = useState({});
+  const [index, setIndex] = useState([]);
 
   function next() {}
   function last() {}
@@ -18,56 +19,38 @@ export const Carrossel = () => {
     //esperado: rec {data: data atual, hours: horario atual, location: local, recb: recebedor do item}
     //criando um objeto com o valor inicial de useState e adicionando os items pegos
     //de data.img.ts
-    setUrl({ center: value.center, next: value.next, prev: value.prev });
-  }, [value]);
 
+    console.log(vas);
+  }, []);
+  useEffect(() => {
+    const inter = new IntersectionObserver((call, opt) => {
+      console.log("run");
+    });
+  }, []);
   return (
     <>
       <div className="image-item-carrossel">
-        {datavalue.url.map((ind, num: number) => {
-          const { comidas } = ind;
-          comidas.vidros.produtos.map((ind, index) => {
-            const src = ind;
-            return (
-              <div className="content-frame">
-                <iframe
-                  src={src}
-                  scrolling="no"
-                  className="iframe-style"
-                ></iframe>
-                <p>name: nomes aqui</p>
-              </div>
-            );
-          });
+        {datavalue.items.map((a, ind, array): any => {
+          const { data, id, name, oldprice, price, url, item } = a;
+          const div = useRef(null);
+          console.log(`array: ${array[0].item} url: ${array[1].url}`);
+          for (let i = 5; i < 5; i++) {
+            return <div>{i}</div>;
+          }
+          return (
+            <div className="item-carrossel" key={id} ref={div}>
+              {item}
+              <img src={array[value].url} width="50px" />
+            </div>
+            
+          );
         })}
-        {imagemState.forEach((ind, index) => {
-          const { url } = ind;
-
-          console.log();
-          for (let i = 0; i < index.valueOf(); i++) {}
-        })}
+        <button
+          type="button"
+          onClick={() => setValue(value + 1)}
+          className="button-style"
+        />
       </div>
-      <button
-        type="button"
-        onClick={() =>
-          setValue(({ center, next, prev }) => {
-            return { center: center + 1, next: next + 1, prev: prev + 1 };
-          })
-        }
-      >
-        next
-      </button>
-      <button
-        type="button"
-        onClick={() =>
-          setValue(({ center, next, prev }) => {
-            return { center: center - 1, next: next - 1, prev: prev - 1 };
-          })
-        }
-      >
-        return
-      </button>
-      <p>{[url.prev, url.center, url.next]}</p>
     </>
   );
 };
