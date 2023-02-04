@@ -24,3 +24,22 @@ text-align: center;
     top: 100px;
     left: 89%;
 }
+
+.one {
+    background: red;
+    top: 50px
+}
+
+.date-carrossel-content {
+    background: white;
+    color: grey;
+    width: 70vw;
+    margin: auto;
+    display: flex;
+    overflow-x: hidden;
+    height: 430px;
+}
+.item-carrossel-content {
+    width: 60px;
+    background: black;
+}
